@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:overScrollMode="ifContentScrolls"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical"
+    tools:openDrawer="start">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/rl_download"
+        android:gravity="center">
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:text="Please download Aadhaar Offline XML, the process is compliant with UIDAI "
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnDownLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView4"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/buttonstyle"
+            android:elevation="8dp"
+            android:paddingTop="10dp"
+            android:text=" Perform OffLine Aadhaar "
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tvXML"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/btnDownLoad"
+            android:layout_gravity="right"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="6dp"
+            android:elevation="18dp"
+            android:gravity="right"
+            android:paddingTop="10dp"
+            android:focusedByDefault="true"
+            android:text="Offline XML Available  "
+            android:drawableEnd="@drawable/ic_fast_forward_black_24dp"
+            android:textAllCaps="false"
+            android:textColor="@color/textcolor" />
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rl_shareDoc"
+            android:gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textColor="@color/colorBlack"
+            android:text="Submit similar details as provided during Aadhaar XML Download:"
+            android:textStyle="normal" />
+
+        <EditText
+            android:id="@+id/mobile_no"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView5"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/colorAccent"
+            android:cursorVisible="true"
+            android:hint="Registered Mobile Number"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingTop="15dp"
+
+            android:singleLine="true"
+            android:text=""
+            android:textColor="#000000"
+            android:textIsSelectable="false"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/aadhaar_last_digit"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/mobile_no"
+            android:layout_below="@+id/mobile_no"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/colorAccent"
+            android:cursorVisible="true"
+            android:gravity="left"
+            android:hint="Last Digit of Aadhaar number"
+            android:inputType="number"
+            android:maxLength="1"
+            android:paddingTop="15dp"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textIsSelectable="false"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/et_shared_code"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/aadhaar_last_digit"
+            android:layout_below="@+id/aadhaar_last_digit"
+            android:layout_gravity="left"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="@color/colorAccent"
+            android:cursorVisible="true"
+            android:gravity="left"
+            android:hint="Your Aadhaar Shared Code"
+            android:maxLength="4"
+            android:paddingTop="15dp"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textIsSelectable="false"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/et_file_path"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/aadhaar_last_digit"
+            android:layout_below="@+id/et_shared_code"
+            android:layout_gravity="left"
+            android:backgroundTint="@color/colorAccent"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
+            android:gravity="left"
+            android:hint="Select Aadhaar .zip file "
+            android:inputType="text"
+            android:paddingTop="15dp"
+            android:singleLine="true"
+            android:textColor="#000000"
+            android:textIsSelectable="false"
+            android:textSize="14dp" />
+
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="top"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/et_file_path"
+            android:text="I provide my consent to iClimbSystems to retrieve my Aadhaar Offline Info and share with Phapa Technologies" />
+
+
+        <Button
+            android:id="@+id/btnsudmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/check_box"
+            android:layout_marginTop="15dp"
+            android:alpha="0.6"
+            android:background="@drawable/buttonstyle"
+            android:elevation="15dp"
+            android:text="Submit"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.icls.offlinekyc">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/login_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@drawable/login_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:icon">
+
+        <activity
+            android:name=".function.MyOrgTabView.MyOrgTabViewActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".function.MyOrgTabView.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".function.WebviewActivity" />
+        <activity
+            android:name=".function.additionalProfile"
+            android:screenOrientation="portrait" />
+        <activity android:name=".login.passcode" />
+        <activity android:name=".function.viewDocumentRecyclerView" />
+        <activity
+            android:name=".function.DrawerActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="callback"
+                    android:scheme="myeid.co.in" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Registration.Registration" />
+
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".login.LoginInfo"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_menu_manage" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/appcolor" />
+
+        <service android:name=".firebaseService.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".function.Service.MyService.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".function.Service.MyService.DownloadService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service android:name=".firebaseService.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="sendotp.key"
+            android:value="@string/sendotp_key" /> <!-- <activity -->
+        <!-- android:name=".function.onBoarding" -->
+        <!-- android:label="@string/title_activity_on_bording" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.VIEW" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+        <!-- <data -->
+        <!-- android:host="callback" -->
+        <!-- android:scheme="myeid.co.in" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity android:name=".main.UploadDock" />
+        <activity android:name=".main.FetchDoc" />
+        <activity android:name=".function.Updatekyc" /> <!-- <activity android:name=".function.ContactUs" /> -->
+        <receiver android:name=".firebaseService.NotificationReceiver" /> <!-- <activity -->
+        <!-- android:name=".function.KycRequest" -->
+        <!-- android:label="@string/title_activity_kyc_request" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <!-- <activity -->
+        <!-- android:name=".function.onProfile" -->
+        <!-- android:label="@string/title_activity_on_profile" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <!-- <activity -->
+        <!-- android:name=".function.onNotification" -->
+        <!-- android:label="@string/title_activity_on_notification" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <!-- <activity -->
+        <!-- android:name=".function.Dashboard" -->
+        <!-- android:label="@string/title_activity_dashboard" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <activity
+            android:name=".function.UserKYCProfile"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

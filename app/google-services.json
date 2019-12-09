@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "553422128558",
+    "firebase_url": "https://offline-kyc.firebaseio.com",
+    "project_id": "offline-kyc",
+    "storage_bucket": "offline-kyc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553422128558:android:6aa708f76785ec55",
+        "android_client_info": {
+          "package_name": "com.icls.offlinekyc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553422128558-j0mavhik056dt7l8d10badbu0p8vg1o6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnBZsJM5EWQ-EJy9gyOK14unW79UZ7Hr0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553422128558-j0mavhik056dt7l8d10badbu0p8vg1o6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appbar"
+        tools:context=".function.additionalProfile">
+        <!--additional profile  layout -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/ProfileGrayLight"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            android:visibility="visible"
+            tools:context="com.icls.offlinekyc.function.UserKYCProfile">
+
+            <RelativeLayout
+                android:id="@+id/userProfileLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="256dp"
+                    android:background="@drawable/gradientbackground"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/additionalprofile_photo"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            app:civ_border_color="@color/white"
+                            app:civ_border_width="2dp"
+                            app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/edtpic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:padding="4dp"
+                            android:src="@drawable/editicon" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/addprofile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textAllCaps="true"
+                        android:textColor="#fff"
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+
+                    android:id="@+id/card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="200dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardElevation="8dp">
+
+                    <LinearLayout
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="5dp">
+
+                        <LinearLayout
+                            android:id="@+id/kyc_status"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:weightSum="3">
+
+                            <ImageView
+                                android:id="@+id/kyc_verify_logo"
+                                android:layout_width="28dp"
+                                android:layout_height="38dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_weight="0.5" />
+
+                            <TextView
+
+                                android:id="@+id/kyc_verify_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="41dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="1.5"
+                                android:text="eKYC Verified"
+                                android:textColor="@color/appcolor"
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+                            <Button
+                                android:id="@+id/btn_update_kyc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/card_view"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="15dp"
+                                android:background="@drawable/profilebuttonstyle"
+                                android:text="Update eKYC"
+                                android:textAllCaps="false"
+                                android:textColor="#fff"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Name from Aadhaar"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_mobile_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Aadhaar Mobile Number*"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_alt_mobile_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Alternate Mobile Number"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLength="10"
+                                android:maxLines="1"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <Spinner
+                                android:id="@+id/et_Gender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Gender"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_date_of_birth"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Date of Birth from Aadhaar"
+                                android:imeOptions="actionNext"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Permanent Address from Aadhaar"
+                                android:imeOptions="actionNext"
+
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="14sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/profileaddress" />
+
+                            <EditText
+                                android:id="@+id/et_localAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Local Address from Aadhaar"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <Spinner
+                                android:id="@+id/et_occupation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Occupation"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        // village //
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+
+                            <EditText
+                                android:id="@+id/et_village"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:hint="Village Name"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        // area //
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+
+                            <EditText
+                                android:id="@+id/et_area"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:hint="Area Name"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        // taluk //
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_taluk"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:hint="Taluk"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        // city /district //
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+                            <EditText
+                                android:id="@+id/et_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:hint="City / District*"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        // state //
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+
+                            <EditText
+                                android:id="@+id/et_state"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:hint="State"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+                        // pincode //
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/ocuupation" />
+
+
+                            <EditText
+                                android:id="@+id/et_zipCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Pincode (Zipcode)"
+                                android:inputType="number"
+                                android:maxLength="6"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/profileaddress" />
+
+
+                            <Spinner
+                                android:id="@+id/member_type_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Member Type"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/profileaddress" />
+
+
+                            <Spinner
+                                android:id="@+id/et_member_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Member Type"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/profileaddress" />
+
+
+                            <Spinner
+                                android:id="@+id/et_coordinator_supervisor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Coordinator Name / Supervisor Name"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp"
+                            android:visibility="gone">
+
+
+                            <Switch
+                                android:id="@+id/et_payment_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:hint="Payment Status"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/profileaddress" />
+
+                            <Spinner
+                                android:id="@+id/et_primary_org_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:dropDownSelector="@drawable/spinner_selector"
+                                android:hint="Coordinator Name / Supervisor Name"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/profileaddress" />
+
+
+                            <Spinner
+                                android:id="@+id/et_primary_organization"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:dropDownSelector="@drawable/spinner_selector"
+                                android:hint="Coordinator Name / Supervisor Name"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/doc_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="25dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="50dp"
+                                app:srcCompat="@drawable/document_icon" />
+
+
+                            <Spinner
+                                android:id="@+id/document_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:dropDownSelector="@drawable/spinner_selector"
+                                android:hint="Coordinator Name / Supervisor Name"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/upload_document"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp"
+                            android:paddingRight="25dp">
+
+                            <EditText
+                                android:id="@+id/document_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="10dp"
+                                android:dropDownSelector="@drawable/spinner_selector"
+                                android:hint="Document Name"
+                                android:paddingLeft="5dp"
+                                android:layout_weight="1"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:visibility="visible" />
+
+                            <Button
+                                android:id="@+id/upload"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/profilebuttonstyle"
+                                android:text="Upload"
+                                android:textColor="#fff"
+                                android:visibility="visible" />
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/info_submit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/card_view"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/profilebuttonstyle"
+                            android:text="Submit"
+                            android:textColor="#fff"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+
+                </android.support.v7.widget.CardView>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

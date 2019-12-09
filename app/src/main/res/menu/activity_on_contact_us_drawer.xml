@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_onBoarding"
+            android:icon="@drawable/ic_dashboard"
+            android:title="On Boarding" />
+        <item
+            android:id="@+id/nav_requestKYC"
+            android:icon="@drawable/ic_contacts_us"
+            android:title="Request KYC" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Notification" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_contactUs"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About Us" />
+            <!--<item-->
+                <!--android:id="@+id/nav_logout"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Logout" />-->
+        </menu>
+    </item>
+
+</menu>

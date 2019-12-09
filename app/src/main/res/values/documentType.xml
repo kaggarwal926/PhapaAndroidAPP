@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="DocumentType">
+        <item>Aadhaar Card</item>
+        <item>Voter Id</item>
+        <item>PAN Card</item>
+        <item>Ration Card</item>
+        <item>DL Card</item>
+        <item>Bank Passbook</item>
+        <item>Education Certificate</item>
+        <item>Work Experience Certificate</item>
+        <item>User Profile Picture</item>
+        <item>Other Documents</item>
+    </string-array>
+
+    <string-array name="Gender">
+        <item>Select Gender*</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="Occupation">
+        <item>Select Occupation*</item>
+        <item>Bar Bender</item>
+        <item>Building Demolition</item>
+        <item>DG / UPS</item>
+        <item>Electrician</item>
+        <item>Exacavation / Earth Work / Foundation</item>
+        <item>Fall Ceiling</item>
+        <item>Grill Worker(Steel)</item>
+        <item>Helper</item>
+        <item>Interiors</item>
+        <item>Mason</item>
+        <item>Painter</item>
+        <item>Plumber</item>
+        <item>Railing(Railway Track)</item>
+        <item>Road Work</item>
+        <item>Roof Work</item>
+        <item>Structural / Column</item>
+        <item>Tiles / Wall / Flooring</item>
+    </string-array>
+
+
+    <!--<string-array name="MemberType">
+        <item>CW Construction Worker</item>
+        <item>LB Labour</item>
+        <item>DV Driver</item>
+        <item>EM Employee</item>
+        <item>EX Executive</item>
+        <item>CZ Citizen</item>
+        <item>SD Student</item>
+    </string-array>-->
+
+
+   <!-- <string-array name="Coordinator">
+        <item>Coordinator Name / Supervisor Name*</item>
+        <item>PhapaUser</item>
+        <item>guest</item>
+        <item>test</item>
+        <item>Developer</item>
+        <item>Executives</item>
+        <item>Demo</item>
+        <item>Demo1</item>
+    </string-array>-->
+
+    <!--<string-array name="Primary_Organization">
+        <item>Phapa.parent</item>
+        <item>Phapa.org</item>
+        <item>Karnatak Construction Workers Union</item>
+        <item>Karnatak building and other construction workers welfare board</item>
+        <item>Phapa Services souharda co-operative society ltd</item>
+        <item>Phapa afford housing program</item>
+        <item>Phapa  affordable housing program</item>
+    </string-array>
+-->
+
+</resources>

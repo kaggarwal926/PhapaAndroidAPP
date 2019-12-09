@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Phapa App</string>
+    //LoginInfo
+    <string name="Enter_no">Enter Mobile Number to Login</string>
+    <string name="login">Login</string>
+    <string name="mob_no">Mobile number</string>
+    <string name="country_code">+91</string>
+
+    //VerificationOTP
+    <string name="verify_otp">OTP verification</string>
+    <string name="failed_otp">Wrong OTP Pls try again</string>
+    <string name="hint_otp">Enter Otp</string>
+    <string name="btnverify">Verify</string>
+    <string name="tvresndOTP">Resend OTP</string>
+
+    //OTP Server Key
+    <string name="sendotp_key">243882ADGkQkxsW6t85bcd76af</string>
+    <string name="title_activity_on_bording">On Bording</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+
+    //onBording
+    <string name="name">Full Name</string>
+    <string name="occupation">Occupation</string>
+    <string name="email">Email</string>
+    <string name="upload_doc">Please upload documents</string>
+    <string name="btn_upload">Upload Docs</string>
+    <string name="share_doc">Share Documents</string>
+    <string name="btn_fetch">Fetch from Digilocker</string>
+
+    //Firebase
+    <string name="FCM_PREF">com.iclimbsystems.realid.fcm_pref</string>
+    <string name="FCM_TOKEN">com.iclimbsystems.realid.fcm_token</string>
+
+    //Contact us
+    <string name="address">Phapa Technologeis Pvt Ltd  #126, Prestige Nugget, 4th Floor, Unit no 301, Infantry Road, Bangalore – 560001</string>
+    <string name="EmailId">info@phapa.in</string>
+    <string name="feedback">Please provide feedback and we will
+                            revert shortly</string>
+    // update kyc request
+    <string name="uploadDocText">Please upload documents</string>
+    <string name="uploadText">Upload Docs</string>
+
+
+    // notification
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="performKyc">Perform KYC</string>
+
+
+    //Request Kyc
+    <string name="share">Share documents with</string>
+    <string name="select_doc">Select document</string>
+    <string name="panDoc">Pan Card</string>
+    <string name="dlDoc">Driving Licence</string>
+    <string name="VoterDoc">Voter ID</string>
+    <string name="pdsDoc">PDS Card</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_test">Test</string>
+    <string name="title_activity_kyc_request">Kyc Request</string>
+    <string name="title_activity_on_profile">Profile</string>
+    <string name="title_activity_on_dashboard">Dashboard</string>
+    <string name="title_activity_on_notification">Notification</string>
+    <string name="title_activity_on_contact_us">ContactUs</string>
+    <string name="title_activity_dashboard">Dashboard</string>
+    <string name="RegisterEmailId">Email ID</string>
+    <string name="RegisterBTN">Register</string>
+    <string name="password">Password</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="LoginId">Login ID</string>
+    // register form validation stirngs
+    <string name="regUserNameError">Please enter full name</string>
+    <string name="mobNoError">Please enter mobile number </string>
+    <string name="loginIdError">Please enter Login ID</string>
+    <string name="emailIdError">Please enter Email ID </string>
+    <string name="passwordError">Please enter password</string>
+    <string name="confirmPasswordError">Please enter re-enter password</string>
+    <string name="passMissMatchError">miss match ! please confirm password </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_web_view">webView</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="textview">TextView</string>
+    <string name="mandatoryFields">Mandatory Fields are Name*, Gender*, Mobile Number*, Occupation:*, City / District*, Coordinator Name / Supervisor Name*</string>
+
+
+    // messaging
+    <string name="hint_enter_a_message">Type a message…</string>
+
+
+</resources>

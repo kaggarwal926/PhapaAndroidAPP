@@ -1,0 +1,19 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:17:1-20:12
+INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:17:1-20:12
+INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:17:1-20:12
+	package
+		ADDED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:18:11-47
+		INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml
+		INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:17:11-69
+uses-sdk
+ADDED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:19:5-43
+INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:19:5-43
+INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:19:5-43
+	android:minSdkVersion
+		ADDED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml:19:15-41
+		INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml
+		INJECTED from D:\Work\MyEid\Working_Dir\praveen\customtabs\AndroidManifest.xml

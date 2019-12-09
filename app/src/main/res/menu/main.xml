@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menuitemlogout"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/usericon"
+        android:icon="@drawable/usericon"
+        android:title="userProfile"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_cart"
+        android:icon="@drawable/ic_bellicon"
+        android:title="Notification"
+
+        app:showAsAction="ifRoom"/>
+    <!--app:actionLayout="@layout/custom_action_item_layout"-->
+</menu>

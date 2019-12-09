@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".function.RequestKYC">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginl"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/marginr"
+            android:text="@string/share"
+            android:textSize="@dimen/share"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="170dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/marginl"
+            android:layout_marginTop="@dimen/margint"
+            android:layout_marginRight="@dimen/marginr"
+            android:text="@string/select_doc"
+            android:textSize="@dimen/share"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/kycRequestListview"
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+
+            </ListView>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:onClick="showResult"
+                android:text="@string/submit"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+        <!--<CheckBox-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:id="@+id/ch_pan"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/panDoc"-->
+        <!--android:layout_marginLeft="@dimen/marginl"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:textSize="@dimen/share"-->
+        <!--/>-->
+        <!--<CheckBox-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/ch_voter"-->
+        <!--android:layout_marginLeft="@dimen/marginl"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:text="@string/VoterDoc"-->
+        <!--android:textSize="@dimen/share"-->
+        <!--/>-->
+        <!--<CheckBox-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:text="@string/pdsDoc"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:layout_marginLeft="@dimen/marginl"-->
+        <!--android:id="@+id/ch_pds"-->
+        <!--android:textSize="@dimen/share"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+        <!--<CheckBox-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:text="@string/dlDoc"-->
+        <!--android:id="@+id/ch_dl"-->
+        <!--android:layout_marginLeft="@dimen/marginl"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:textSize="@dimen/share"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
+
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginTop="@dimen/margint"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:id="@+id/ch_pan"
+                android:layout_height="wrap_content"
+                android:text="@string/panDoc"
+                android:textSize="@dimen/share"
+                android:layout_weight="0.8"
+                />
+            <CheckBox
+                android:layout_width="0dp"
+                android:text="@string/dlDoc"
+                android:id="@+id/ch_dl"
+                android:textSize="@dimen/share"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"/>
+
+        </LinearLayout>-->
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginTop="@dimen/margint"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ch_voter"
+                android:text="@string/VoterDoc"
+                android:textSize="@dimen/share"
+                android:layout_weight="0.8"
+                />
+            <CheckBox
+                android:layout_width="0dp"
+                android:text="@string/pdsDoc"
+                android:id="@+id/ch_pds"
+                android:textSize="@dimen/share"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"/>
+
+        </LinearLayout>-->
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+

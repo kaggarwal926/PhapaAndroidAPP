@@ -1,0 +1,125 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="1dp">
+
+    <LinearLayout
+        android:id="@+id/chat_left_msg_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/incoming_frame"/>
+        <LinearLayout
+            android:id="@+id/view_document_left"
+            android:orientation="vertical"
+            android:layout_marginRight="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/incoming_msg"
+            >
+            <ImageView
+                android:id="@+id/attatchment_in_chat_row_left"
+                android:layout_width="250px"
+                android:visibility="gone"
+                android:layout_height="180px"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="8dp"
+                />
+            <TextView
+                android:id="@+id/chat_left_msg_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:textSize="14sp"
+                android:maxWidth="200dp"
+                android:textColor="@color/black"
+                android:paddingLeft="5dp"
+                android:layout_margin="10dp"
+                android:text="helksjdfhfgkjshdffgjkhsdkfjfghjksdrhgjlkdsflkjsddflkjsdfglkjsfgkjlsfdglkjsddfljksfdlgkjhsdfkljghadarlkjfhlo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:textSize="9sp"
+                android:paddingLeft="12dp"
+                android:id="@+id/timestamp"
+                android:layout_marginRight="3dp"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="end"
+                android:textAlignment="viewEnd"
+                android:text="00:00"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/chat_right_msg_layout"
+        android:layout_gravity="right"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/view_document"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/outgoing_msg"
+            >
+
+            <ImageView
+                android:id="@+id/attatchment_in_chat_row"
+                android:layout_width="250px"
+                android:visibility="gone"
+                android:layout_height="180px"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="8dp"
+                />
+
+            <TextView
+                android:id="@+id/chat_right_msg_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="10dp"
+                android:maxWidth="200dp"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:paddingRight="8dp"
+                android:text="hisfdkjfhsdkjdfhfkjhdfkjjksdhffkjhkjsddhfkjkjshdfjkjhsjdhffjadhdjkfkjhfkjsdddfkjhsdkjhf"
+                android:textSize="14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9sp"
+                android:paddingRight="12dp"
+                android:id="@+id/right_timestamp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="end"
+                android:textAlignment="viewEnd"
+                android:text="00:00"/>
+
+
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:background="@drawable/outgoing_frame"
+            />
+
+    </LinearLayout>
+</LinearLayout>
