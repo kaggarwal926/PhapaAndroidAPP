@@ -110,51 +110,51 @@
                         android:orientation="vertical"
                         android:paddingBottom="5dp">
 
-                        <LinearLayout
-                            android:id="@+id/kyc_status"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="5dp"
-                            android:orientation="horizontal"
-                            android:paddingLeft="25dp"
-                            android:paddingRight="25dp"
-                            android:weightSum="3">
+                            <LinearLayout
+                                android:id="@+id/kyc_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:paddingLeft="25dp"
+                                android:paddingRight="25dp"
+                                android:weightSum="3">
 
-                            <ImageView
-                                android:id="@+id/kyc_verify_logo"
-                                android:layout_width="28dp"
-                                android:layout_height="38dp"
-                                android:layout_marginTop="2dp"
-                                android:layout_weight="0.5" />
+                                <ImageView
+                                    android:id="@+id/kyc_verify_logo"
+                                    android:layout_width="28dp"
+                                    android:layout_height="38dp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_weight="0.5" />
 
-                            <TextView
+                                <TextView
 
-                                android:id="@+id/kyc_verify_status"
-                                android:layout_width="wrap_content"
-                                android:layout_height="41dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1.5"
-                                android:text="eKYC Verified"
-                                android:textColor="@color/appcolor"
-                                android:textSize="16sp"
-                                android:textStyle="normal"
-                                android:visibility="visible" />
+                                    android:id="@+id/kyc_verify_status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="41dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1.5"
+                                    android:text="eKYC Verified"
+                                    android:textColor="@color/appcolor"
+                                    android:textSize="16sp"
+                                    android:textStyle="normal"
+                                    android:visibility="visible" />
 
-                            <Button
-                                android:id="@+id/btn_update_kyc"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/card_view"
-                                android:layout_centerHorizontal="true"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="15dp"
-                                android:background="@drawable/profilebuttonstyle"
-                                android:text="Update eKYC"
-                                android:textAllCaps="false"
-                                android:textColor="#fff"
-                                android:visibility="visible" />
-                        </LinearLayout>
+                                <Button
+                                    android:id="@+id/btn_update_kyc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/card_view"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="15dp"
+                                    android:background="@drawable/profilebuttonstyle"
+                                    android:text="Update eKYC"
+                                    android:textAllCaps="false"
+                                    android:textColor="#fff"
+                                    android:visibility="visible" />
+                            </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -741,82 +741,111 @@
                             </LinearLayout>
 
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="5dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="20dp"
-                            android:layerType="software"
-                            android:src="@drawable/dotted" />
+
+                        <!--                        <ImageView-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="5dp"-->
+                        <!--                            android:layout_marginTop="20dp"-->
+                        <!--                            android:layout_marginBottom="20dp"-->
+                        <!--                            android:layerType="software"-->
+                        <!--                            android:src="@drawable/dotted" />-->
 
                         <LinearLayout
-                            android:id="@+id/doc_type"
+                            android:id="@+id/linear_layout"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="10dp"
-                            android:orientation="horizontal"
-                            android:paddingLeft="25dp"
-                            android:paddingRight="25dp">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="50dp"
-                                app:srcCompat="@drawable/document_icon" />
-
-
-                            <Spinner
-                                android:id="@+id/document_type"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:dropDownSelector="@drawable/spinner_selector"
-                                android:hint="Document Type"
-                                android:paddingLeft="5dp"
-                                android:text=""
-                                android:textSize="16sp"
-                                android:textStyle="normal"
-                                android:visibility="visible" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/upload_document"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
-                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/rectangle_dash_line"
                             android:orientation="vertical"
-                            android:paddingLeft="25dp"
-                            android:paddingRight="25dp">
+                            android:padding="15dp">
 
-                            <TextView
-                                android:id="@+id/selectImage"
+                            <LinearLayout
+                                android:id="@+id/doc_type"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:dropDownSelector="@drawable/spinner_selector"
-                                android:gravity="center"
-                                android:hint="Select Document"
-                                android:paddingLeft="5dp"
-                                android:text=""
-                                android:textSize="16sp"
-                                android:textStyle="normal"
-                                android:visibility="gone" />
-
-                            <Button
-                                android:id="@+id/upload"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginTop="10dp"
-                                android:background="@color/colorGrey"
-                                android:text="Upload"
-                                android:textColor="#fff"
-                                android:visibility="visible" />
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="50dp"
+                                    app:srcCompat="@drawable/document_icon" />
+
+
+                                <Spinner
+                                    android:id="@+id/document_type"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="10dp"
+                                    android:dropDownSelector="@drawable/spinner_selector"
+                                    android:hint="Document Type"
+                                    android:paddingLeft="5dp"
+                                    android:text=""
+                                    android:textSize="16sp"
+                                    android:textStyle="normal"
+                                    android:visibility="visible" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/upload_document"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <Button
+                                        android:id="@+id/choose_file"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/layoutborder"
+                                        android:minWidth="0dp"
+                                        android:minHeight="0dp"
+                                        android:text="Choose File"
+                                        android:textAllCaps="false"
+                                        android:textColor="#000"
+                                        android:textStyle="normal"
+                                        android:visibility="visible" />
+
+                                    <TextView
+                                        android:id="@+id/selectImage"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="10dp"
+                                        android:dropDownSelector="@drawable/spinner_selector"
+                                        android:hint="No File Chosen"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
+                                        android:textStyle="normal"
+                                        android:visibility="visible" />
+                                </LinearLayout>
+
+                                <Button
+                                    android:id="@+id/upload"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:background="@color/colorGrey"
+                                    android:minWidth="0dp"
+                                    android:minHeight="0dp"
+                                    android:padding="12dp"
+                                    android:text="Upload"
+                                    android:textColor="#fff"
+                                    android:textAllCaps="false"
+                                    android:textStyle="normal"
+                                    android:visibility="visible" />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <Button

@@ -5,6 +5,7 @@ package com.icls.offlinekyc.function;
 import android.Manifest;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,9 +22,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +36,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,6 +49,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.icls.offlinekyc.commonshare.ImagePickerActivity;
 import com.icls.offlinekyc.commonshare.VolleyMultiPartRequest;
 
 import com.android.volley.NetworkResponse;
@@ -64,6 +69,11 @@ import com.icls.offlinekyc.helper.PrimaryOrgGroupMaster;
 import com.icls.offlinekyc.helper.PrimaryOrganisationPOJO;
 import com.icls.offlinekyc.roomdb.OrganizationRepository;
 import com.icls.offlinekyc.roomdb.UserProfile;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -126,9 +136,10 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     public String ProfilepicName;
     public Bitmap bmp;
     Uri docUri;
+    String docType;
     ImageView additionalprofile_photo, edtpic, editInfo, kyc_verify_logo;
     TextView addprofile_name, kyc_verify_status;
-    Button btn_upload_doc;
+    Button btn_upload_doc, btn_choose_file;
     Spinner etOccupation,
             SpmemberTypeGroup,  /*select member type group*/
             etMemberType, /*select member type*/
@@ -168,6 +179,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     private Spinner etGender, document_type;
     File myDir;
 
+    public static final int REQUEST_IMAGE = 100;
 
     private Button btn_update_kyc;
     int orgGroupcount = 0, MemTypeGroupcount = 0;
@@ -421,16 +433,36 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View v) {
 
-                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                getIntent.setType("image/*");
+                Dexter.withActivity(additionalProfile.this)
+                        .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                if (report.areAllPermissionsGranted()) {
+                                    showImagePickerOptions();
+                                }
 
-                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                pickIntent.setType("image/*");
+                                if (report.isAnyPermissionPermanentlyDenied()) {
+                                    showSettingsDialog();
+                                }
+                            }
 
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }).check();
 
-                startActivityForResult(chooserIntent, PICK_PHOTO_FOR_AVATAR);
+//                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//                getIntent.setType("image/*");
+//
+//                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                pickIntent.setType("image/*");
+//
+//                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+//                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
+//
+//                startActivityForResult(chooserIntent, PICK_PHOTO_FOR_AVATAR);
             }
         });
 
@@ -479,14 +511,12 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                             common.NEWRECORD);
 
                     if (isNetworkConnected())
-                        //sendUploadedDocument(docTypeId, DocumentfileName, base64Document);
-                        sendDoc();
                     new AsyncTaskRunnerUpdateProfileToServer().execute(profileImage);
                 }
             }
         });
 
-        btn_upload_doc.setOnClickListener(new View.OnClickListener() {
+        btn_choose_file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ActivityCompat.checkSelfPermission(additionalProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -501,6 +531,14 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
 //                    intent.setType("file/*");
 //                    startActivityForResult(intent, SELECTED_DOCUMENT);
                 }
+            }
+        });
+
+        btn_upload_doc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //sendUploadedDocument(docTypeId, DocumentfileName, base64Document);
+                sendDoc();
             }
         });
     }
@@ -620,6 +658,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         kyc_verify_logo = findViewById(R.id.kyc_verify_logo);
         btn_update_kyc = findViewById(R.id.btn_update_kyc);
         btn_upload_doc = findViewById(R.id.upload);
+        btn_choose_file = findViewById(R.id.choose_file);
         SharedPreferences prefs = getSharedPreferences("PASSCODEDB", MODE_PRIVATE);
         String KYC = prefs.getString("KYC", "nostatus");
         if (KYC.equalsIgnoreCase("Not Completed")) {
@@ -767,11 +806,27 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                 }
 
                 filePathDoc = docUri.getPath();//uri.getLastPathSegment();
+                ContentResolver cR = context.getContentResolver();
+                docType = cR.getType(docUri);
                 DocumentfileName = filePathDoc.substring(filePathDoc.lastIndexOf("/") + 1);
                 DocumentfileName = getFileName(this,docUri,filePathDoc);
                 Log.i("DocumentfileName",DocumentfileName+"");
                 selectDocument.setVisibility(View.VISIBLE);
                 selectDocument.setText(DocumentfileName);
+
+            } else if (requestCode == REQUEST_IMAGE) {
+                if (resultCode == Activity.RESULT_OK) {
+                    Uri uri = data.getParcelableExtra("path");
+                    try {
+                        // You can update this bitmap to your server
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                        additionalprofile_photo.setImageBitmap(bitmap);
+                        // loading profile image from local cache
+                        //loadProfile(uri.toString());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1266,6 +1321,20 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             public void onResponse(NetworkResponse response) {
                 String resultResponse = new String(response.data);
                 Log.e("resultResponse", resultResponse+"");
+
+                try {
+                    JSONObject json = new JSONObject(resultResponse);    // create JSON obj from string
+                    JSONObject data = json.getJSONObject("data");
+                    int status = data.getInt("status");
+                    if(status == 200){
+                        Toast.makeText(additionalProfile.this, "File has been uploaded sucessfully", Toast.LENGTH_LONG).show();
+                        selectDocument.setText("File uploaded");
+                    }else{
+                        Toast.makeText(additionalProfile.this, "File upload failed", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 // parse success output
             }
         }, new com.android.volley.Response.ErrorListener() {
@@ -1277,8 +1346,10 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("document_type_id", "21");
-                params.put("name", "TestFile");
+                params.put("document_type_id", docTypeId);
+                params.put("name", DocumentfileName);
+
+                Log.e("params",params.toString());
                 return params;
             }
 
@@ -1286,14 +1357,13 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             @Override
             public Map getHeaders() throws AuthFailureError {
                 HashMap headers = new HashMap();
-                headers.put("Content-Type", "application/x-www-form-urlencoded");
+              //  headers.put("Content-Type", "application/x-www-form-urlencoded");
                 headers.put("Client-Service", "frontend-client");
                 headers.put("Auth-key", "simplerestapi");
-                headers.put("User-ID", "7016006");
-                headers.put("Authorization", "d5674904d9bdb8678a51c1cdf839095d");
+                headers.put("User-ID", common.ID);
+                headers.put("Authorization", common.TOKEN);
                 return headers;
             }
-
 
             @Override
             protected Map<String, DataPart> getByteData() {
@@ -1312,7 +1382,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                params.put("documents", new DataPart(DocumentfileName, inputData, "image/jpeg"));
+                params.put("documents", new DataPart(DocumentfileName, inputData, docType));
 
                 return params;
             }
@@ -1807,6 +1877,16 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         return filename.substring(index + 1);
     }
 
+    // url = file path or whatever suitable URL you want.
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+
     public byte[] getBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
         int bufferSize = 1024;
@@ -1828,6 +1908,72 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         return isConnected;
     }
 
+    private void showImagePickerOptions() {
+        ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
+            @Override
+            public void onTakeCameraSelected() {
+                launchCameraIntent();
+            }
+
+            @Override
+            public void onChooseGallerySelected() {
+                launchGalleryIntent();
+            }
+        });
+    }
 
 
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(additionalProfile.this);
+        builder.setTitle(getString(R.string.dialog_permission_title));
+        builder.setMessage(getString(R.string.dialog_permission_message));
+        builder.setPositiveButton(getString(R.string.go_to_settings), (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.cancel());
+        builder.show();
+
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+    private void launchCameraIntent() {
+        Intent intent = new Intent(additionalProfile.this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+
+        // setting maximum bitmap width and height
+        intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    private void launchGalleryIntent() {
+        Intent intent = new Intent(additionalProfile.this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_GALLERY_IMAGE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
 }
