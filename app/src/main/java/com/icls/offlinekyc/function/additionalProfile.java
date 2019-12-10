@@ -2,6 +2,7 @@
 
 package com.icls.offlinekyc.function;
 
+import android.Manifest;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
@@ -19,7 +20,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,6 +71,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -112,6 +117,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     public Bitmap bmp;
     ImageView additionalprofile_photo, edtpic, editInfo, kyc_verify_logo;
     TextView addprofile_name, kyc_verify_status;
+    Button btn_upload_doc;
     Spinner etOccupation,
             SpmemberTypeGroup,  /*select member type group*/
             etMemberType, /*select member type*/
@@ -127,7 +133,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
 
     Switch switchPaymentStatus;
     EditText etAddress;
-    EditText selectDocument;
+    TextView selectDocument;
     Button btnInfoSumbit, btnDocSumbit;
     RecyclerView documentRecyclerView;
     String profileImage, imagePath;
@@ -142,13 +148,15 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     List<UserProfile> addiProfileData = new ArrayList<>();
     private String docTypeId;
     private String base64Document;
-    private String DocumentfileName;
+    private String DocumentfileName, filePathDoc;
     private ArrayList<String> DocumentList = new ArrayList<>();
+    private ArrayList<String> documentList = new ArrayList<>();
     private AdditionalDocumentAdapter additionalDocumentAdapter;
     private LinearLayout cardDoc;
     private TextView viewDocuments;
-    private Spinner etGender;
+    private Spinner etGender, document_type;
     File myDir;
+
 
     private Button btn_update_kyc;
     int orgGroupcount = 0, MemTypeGroupcount = 0;
@@ -169,6 +177,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     //String
 
     String orgName, membberTypeCode, organisationTroupType;
+    String document_type_name, document_type_id;
 
     private Target getTarget() {
         Target target = new Target() {
@@ -458,7 +467,26 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                             common.NEWRECORD);
 
                     if (isNetworkConnected())
+                        sendUploadedDocument(docTypeId, DocumentfileName, base64Document);
                         new AsyncTaskRunnerUpdateProfileToServer().execute(profileImage);
+                }
+            }
+        });
+
+        btn_upload_doc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ActivityCompat.checkSelfPermission(additionalProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(additionalProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, SELECTED_DOCUMENT);
+                } else {
+                    Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                    i.setType("*/*");
+                    startActivityForResult(i, SELECTED_DOCUMENT);
+//                    Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                    startActivityForResult(intent, SELECTED_DOCUMENT);
+//                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                    intent.setType("file/*");
+//                    startActivityForResult(intent, SELECTED_DOCUMENT);
                 }
             }
         });
@@ -572,11 +600,13 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         Log.d(TAG, "init: " + phoneNumber);
         additionalprofile_photo = findViewById(R.id.additionalprofile_photo);
         edtpic = findViewById(R.id.edtpic);
-        //selectDocument = findViewById(R.id.selectImage);
+        selectDocument = findViewById(R.id.selectImage);
+        document_type = findViewById(R.id.document_type);
         addprofile_name = findViewById(R.id.addprofile_name);
         kyc_verify_status = findViewById(R.id.kyc_verify_status);
         kyc_verify_logo = findViewById(R.id.kyc_verify_logo);
         btn_update_kyc = findViewById(R.id.btn_update_kyc);
+        btn_upload_doc = findViewById(R.id.upload);
         SharedPreferences prefs = getSharedPreferences("PASSCODEDB", MODE_PRIVATE);
         String KYC = prefs.getString("KYC", "nostatus");
         if (KYC.equalsIgnoreCase("Not Completed")) {
@@ -660,12 +690,14 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         //Spinner for documents
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.DocumentType, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        // spinner.setAdapter(adapter);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.DocumentType, android.R.layout.simple_spinner_item);
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Apply the adapter to the spinner
+//        document_type.setAdapter(adapter);
+
+        getDocumentList();
 
     }
 
@@ -708,12 +740,12 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                     e.printStackTrace();
                 }
 
-
             } else if (requestCode == SELECTED_DOCUMENT && resultCode == Activity.RESULT_OK) {
                 if (data == null) {
                     //Display an error
                     return;
                 }
+//                String Fpath = data.getDataString();
                 final Uri uri = data.getData();
                 try {
                     selectedDocument(uri);
@@ -721,11 +753,12 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                     e.printStackTrace();
                 }
 
-                String filepath = uri.getPath();//uri.getLastPathSegment();
-
-                DocumentfileName = filepath.substring(filepath.lastIndexOf("/") + 1);
-
-
+                filePathDoc = uri.getPath();//uri.getLastPathSegment();
+                DocumentfileName = filePathDoc.substring(filePathDoc.lastIndexOf("/") + 1);
+                DocumentfileName = getFileName(this,uri,filePathDoc);
+                Log.i("DocumentfileName",DocumentfileName+"");
+                selectDocument.setVisibility(View.VISIBLE);
+                selectDocument.setText(DocumentfileName);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1218,27 +1251,40 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
 
         OkHttpClient client = new OkHttpClient();
 
-        final JSONObject jsonBody1 = new JSONObject();
-        try {
-            jsonBody1.put("document_type_id", docTypeId);
-            jsonBody1.put("documents", base64Document);
-            jsonBody1.put("name", name);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        final JSONObject jsonBody1 = new JSONObject();
+//        try {
+//            jsonBody1.put("document_type_id", docTypeId);
+//            jsonBody1.put("documents", base64Document);
+//            jsonBody1.put("name", name);
+//
+//            Log.e("jsonBody1", jsonBody1.toString());
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
         MediaType mediaType = MediaType.parse("application/json");
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         // put your json here
-        final RequestBody body1 = RequestBody.create(JSON, jsonBody1.toString());
+//        final RequestBody body1 = RequestBody.create(JSON, jsonBody1.toString());
+        File file = new File(context.getFilesDir().getAbsolutePath() + "/"+name);
+        RequestBody body1 = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("documents", file.getName(),
+                        RequestBody.create(MediaType.parse("text/image"), file))
+//                .addFormDataPart("documents", "logo-square.png",
+//                        RequestBody.create(
+//                                new File("docs/images/logo-square.png"),
+//                                MEDIA_TYPE_PNG))
+                .addFormDataPart("name", name)
+                .addFormDataPart("document_type_id", "21")
+                .build();
 
         // put your json here
         final Request request = new Request.Builder()
                 .url(common.PHAPAURL + "myeid/documentUpload")
                 .addHeader("Client-Service", "frontend-client")
                 .addHeader("Auth-key", "simplerestapi")
-                .addHeader("Content-Type", "application/json")
+//                .addHeader("Content-Type", "application/json")
                 .addHeader("User-ID", common.ID)
                 .addHeader("Authorization", common.TOKEN)
                 .addHeader("Accept", "*/*")
@@ -1256,16 +1302,69 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                 additionalProfile.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(additionalProfile.this, "Document uploaded successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(additionalProfile.this, myResponse+"", Toast.LENGTH_LONG).show();
                     }
                 });
-                Log.w(TAG, "upload document = " + myResponse);
+                Log.e(TAG, "Upload Document = " + myResponse);
+            }
+        });
+    }
+
+    private void getDocumentList() {
+
+        OkHttpClient client = new OkHttpClient();
+
+        // put your json here
+        final Request request = new Request.Builder()
+                .url(common.PHAPAURL + "myeid/documentList")
+                .addHeader("Client-Service", "frontend-client")
+                .addHeader("Auth-key", "simplerestapi")
+                .addHeader("Content-Type", "application/x-www-form-urlencoded")
+                .addHeader("User-ID", common.ID)
+                .addHeader("Authorization", common.TOKEN)
+                .addHeader("Accept", "*/*")
+                .get()
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
             }
 
-
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String myResponse = response.body().string();
+                documentList.add("Select Document Type");
+                try {
+                    JSONArray jsonRes = new JSONArray(myResponse);
+                    for (int i = 0; i < jsonRes.length(); i++) {
+                        JSONObject obj = jsonRes.getJSONObject(i);
+                        document_type_name = obj.getString("document_type_name");
+                        document_type_id = obj.getString("document_type_id");
+                        documentList.add(document_type_name);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                additionalProfile.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                       // ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<ArrayList<String>>(additionalProfile.this, documentList, android.R.layout.simple_spinner_item);
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                                additionalProfile.this,
+                                android.R.layout.simple_spinner_item,
+                                documentList
+                        );
+                        // Specify the layout to use when the list of choices appears
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        // Apply the adapter to the spinner
+                        document_type.setAdapter(adapter);
+                        //Toast.makeText(additionalProfile.this, "Document List fetched " + myResponse, Toast.LENGTH_LONG).show();
+                    }
+                });
+                Log.i(TAG, "upload document = " + myResponse);
+            }
         });
-
-
     }
 
     @Override
@@ -1303,6 +1402,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         intent.putStringArrayListExtra("docList", DocumentList);
         startActivity(intent);
     }
+
 
     // Send user profile data to Phapa server from android app
     private class AsyncTaskRunnerUpdateProfileToServer extends AsyncTask<String, String, String> {
@@ -1600,6 +1700,38 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         }
     }
 
+    private static String getFileName(@NonNull Context context, Uri uri , String path) {
+        String mimeType = context.getContentResolver().getType(uri);
+        String filename = null;
+
+        if (mimeType == null) {
+            //String path = getPath(context, uri);
+            if (path == null) {
+                filename = getName(uri.toString());
+            } else {
+                File file = new File(path);
+                filename = file.getName();
+            }
+        } else {
+            Cursor returnCursor = context.getContentResolver().query(uri, null, null, null, null);
+            if (returnCursor != null) {
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+                filename = returnCursor.getString(nameIndex);
+                returnCursor.close();
+            }
+        }
+
+        return filename;
+    }
+
+    private static String getName(String filename) {
+        if (filename == null) {
+            return null;
+        }
+        int index = filename.lastIndexOf('/');
+        return filename.substring(index + 1);
+    }
 
     public boolean isNetworkConnected() {
         ConnectivityManager
