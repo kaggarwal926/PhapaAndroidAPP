@@ -173,6 +173,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     private String DocumentfileName, filePathDoc;
     private ArrayList<String> DocumentList = new ArrayList<>();
     private ArrayList<String> documentList = new ArrayList<>();
+    private ArrayList<String> documentListId = new ArrayList<>();
     private AdditionalDocumentAdapter additionalDocumentAdapter;
     private LinearLayout cardDoc;
     private TextView viewDocuments;
@@ -541,6 +542,14 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                 sendDoc();
             }
         });
+
+        viewDocuments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onViewDocuments(view);
+
+            }
+        });
     }
 
     private boolean ValidateData() {
@@ -659,6 +668,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         btn_update_kyc = findViewById(R.id.btn_update_kyc);
         btn_upload_doc = findViewById(R.id.upload);
         btn_choose_file = findViewById(R.id.choose_file);
+        viewDocuments = findViewById(R.id.viewDocuments);
         SharedPreferences prefs = getSharedPreferences("PASSCODEDB", MODE_PRIVATE);
         String KYC = prefs.getString("KYC", "nostatus");
         if (KYC.equalsIgnoreCase("Not Completed")) {
@@ -1327,10 +1337,21 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                     JSONObject data = json.getJSONObject("data");
                     int status = data.getInt("status");
                     if(status == 200){
-                        Toast.makeText(additionalProfile.this, "File has been uploaded sucessfully", Toast.LENGTH_LONG).show();
+                        additionalProfile.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(additionalProfile.this, "File has been uploaded sucessfully", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         selectDocument.setText("File uploaded");
                     }else{
-                        Toast.makeText(additionalProfile.this, "File upload failed", Toast.LENGTH_LONG).show();
+                        additionalProfile.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(additionalProfile.this, "File upload failed", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        selectDocument.setText("File upload failed");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1479,6 +1500,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
                 documentList.add("Select Document Type");
+                documentListId.add(document_type_id);
                 try {
                     JSONArray jsonRes = new JSONArray(myResponse);
                     for (int i = 0; i < jsonRes.length(); i++) {
@@ -1486,6 +1508,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                         document_type_name = obj.getString("document_type_name");
                         document_type_id = obj.getString("document_type_id");
                         documentList.add(document_type_name);
+                        documentListId.add(document_type_id);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1503,6 +1526,19 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         document_type.setAdapter(adapter);
+                        document_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view,
+                                                       int position, long id) {
+                                docTypeId = document_type.getSelectedItem().toString();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                                // TODO Auto-generated method stub
+
+                            }
+                        });
                         //Toast.makeText(additionalProfile.this, "Document List fetched " + myResponse, Toast.LENGTH_LONG).show();
                     }
                 });
@@ -1543,7 +1579,6 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     public void onViewDocuments(View view) {
 
         Intent intent = new Intent(getApplicationContext(), viewDocumentRecyclerView.class);
-        intent.putStringArrayListExtra("docList", DocumentList);
         startActivity(intent);
     }
 
@@ -1715,7 +1750,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                     .get()
                     .addHeader("Client-Service", "frontend-client")
                     .addHeader("Auth-key", "simplerestapi")
-                    .addHeader("Content-Type", "application/json")
+                    //.addHeader("Content-Type", "application/json")
                     .addHeader("User-ID", common.ID)
                     .addHeader("Authorization", common.TOKEN)
                     .addHeader("Accept", "*")
@@ -1735,6 +1770,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                         JSONObject obj = new JSONObject(myResponse);
                         JSONObject data = obj.getJSONObject("data");
                         JSONObject adhar = obj.getJSONObject("adhar");
+                        JSONArray documents = obj.getJSONArray("documents");
                         if (data != null) {
                             String member_id = data.optString("member_id", " ");
                             String member_occupation = data.optString("member_occupation", " ");
@@ -1822,6 +1858,8 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                                 });
                             }
                         }
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
