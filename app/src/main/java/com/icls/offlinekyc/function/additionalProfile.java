@@ -22,11 +22,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+<<<<<<< HEAD
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+=======
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -139,7 +145,11 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     String docType;
     ImageView additionalprofile_photo, edtpic, editInfo, kyc_verify_logo;
     TextView addprofile_name, kyc_verify_status;
+<<<<<<< HEAD
     Button btn_upload_doc, btn_choose_file;
+=======
+    Button btn_upload_doc;
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
     Spinner etOccupation,
             SpmemberTypeGroup,  /*select member type group*/
             etMemberType, /*select member type*/
@@ -173,14 +183,20 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
     private String DocumentfileName, filePathDoc;
     private ArrayList<String> DocumentList = new ArrayList<>();
     private ArrayList<String> documentList = new ArrayList<>();
+<<<<<<< HEAD
     private ArrayList<String> documentListId = new ArrayList<>();
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
     private AdditionalDocumentAdapter additionalDocumentAdapter;
     private LinearLayout cardDoc;
     private TextView viewDocuments;
     private Spinner etGender, document_type;
     File myDir;
 
+<<<<<<< HEAD
     public static final int REQUEST_IMAGE = 100;
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
 
     private Button btn_update_kyc;
     int orgGroupcount = 0, MemTypeGroupcount = 0;
@@ -512,6 +528,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                             common.NEWRECORD);
 
                     if (isNetworkConnected())
+<<<<<<< HEAD
                     new AsyncTaskRunnerUpdateProfileToServer().execute(profileImage);
                 }
             }
@@ -531,6 +548,10 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
 //                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 //                    intent.setType("file/*");
 //                    startActivityForResult(intent, SELECTED_DOCUMENT);
+=======
+                        sendUploadedDocument(docTypeId, DocumentfileName, base64Document);
+                        new AsyncTaskRunnerUpdateProfileToServer().execute(profileImage);
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
                 }
             }
         });
@@ -538,6 +559,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         btn_upload_doc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 //sendUploadedDocument(docTypeId, DocumentfileName, base64Document);
                 sendDoc();
             }
@@ -548,6 +570,20 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             public void onClick(View view) {
                 onViewDocuments(view);
 
+=======
+                if (ActivityCompat.checkSelfPermission(additionalProfile.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(additionalProfile.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, SELECTED_DOCUMENT);
+                } else {
+                    Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                    i.setType("*/*");
+                    startActivityForResult(i, SELECTED_DOCUMENT);
+//                    Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                    startActivityForResult(intent, SELECTED_DOCUMENT);
+//                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                    intent.setType("file/*");
+//                    startActivityForResult(intent, SELECTED_DOCUMENT);
+                }
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
             }
         });
     }
@@ -667,8 +703,11 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         kyc_verify_logo = findViewById(R.id.kyc_verify_logo);
         btn_update_kyc = findViewById(R.id.btn_update_kyc);
         btn_upload_doc = findViewById(R.id.upload);
+<<<<<<< HEAD
         btn_choose_file = findViewById(R.id.choose_file);
         viewDocuments = findViewById(R.id.viewDocuments);
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
         SharedPreferences prefs = getSharedPreferences("PASSCODEDB", MODE_PRIVATE);
         String KYC = prefs.getString("KYC", "nostatus");
         if (KYC.equalsIgnoreCase("Not Completed")) {
@@ -808,13 +847,18 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                     return;
                 }
 //                String Fpath = data.getDataString();
+<<<<<<< HEAD
                 docUri = data.getData();
+=======
+                final Uri uri = data.getData();
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
                 try {
                     selectedDocument(docUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+<<<<<<< HEAD
                 filePathDoc = docUri.getPath();//uri.getLastPathSegment();
                 ContentResolver cR = context.getContentResolver();
                 docType = cR.getType(docUri);
@@ -837,6 +881,14 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                         e.printStackTrace();
                     }
                 }
+=======
+                filePathDoc = uri.getPath();//uri.getLastPathSegment();
+                DocumentfileName = filePathDoc.substring(filePathDoc.lastIndexOf("/") + 1);
+                DocumentfileName = getFileName(this,uri,filePathDoc);
+                Log.i("DocumentfileName",DocumentfileName+"");
+                selectDocument.setVisibility(View.VISIBLE);
+                selectDocument.setText(DocumentfileName);
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1500,7 +1552,10 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
             public void onResponse(Call call, Response response) throws IOException {
                 String myResponse = response.body().string();
                 documentList.add("Select Document Type");
+<<<<<<< HEAD
                 documentListId.add(document_type_id);
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
                 try {
                     JSONArray jsonRes = new JSONArray(myResponse);
                     for (int i = 0; i < jsonRes.length(); i++) {
@@ -1508,7 +1563,10 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                         document_type_name = obj.getString("document_type_name");
                         document_type_id = obj.getString("document_type_id");
                         documentList.add(document_type_name);
+<<<<<<< HEAD
                         documentListId.add(document_type_id);
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1516,7 +1574,11 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                 additionalProfile.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+<<<<<<< HEAD
                         // ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<ArrayList<String>>(additionalProfile.this, documentList, android.R.layout.simple_spinner_item);
+=======
+                       // ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<ArrayList<String>>(additionalProfile.this, documentList, android.R.layout.simple_spinner_item);
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                                 additionalProfile.this,
                                 android.R.layout.simple_spinner_item,
@@ -1526,6 +1588,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         // Apply the adapter to the spinner
                         document_type.setAdapter(adapter);
+<<<<<<< HEAD
                         document_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view,
@@ -1539,6 +1602,8 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
 
                             }
                         });
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
                         //Toast.makeText(additionalProfile.this, "Document List fetched " + myResponse, Toast.LENGTH_LONG).show();
                     }
                 });
@@ -1914,6 +1979,7 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         int index = filename.lastIndexOf('/');
         return filename.substring(index + 1);
     }
+<<<<<<< HEAD
 
     // url = file path or whatever suitable URL you want.
     public static String getMimeType(String url) {
@@ -1936,6 +2002,8 @@ public class additionalProfile extends AppCompatActivity implements AdapterView.
         }
         return byteBuffer.toByteArray();
     }
+=======
+>>>>>>> 2799836297e2fb708a88cd97ee505f3b3409e75b
 
     public boolean isNetworkConnected() {
         ConnectivityManager
