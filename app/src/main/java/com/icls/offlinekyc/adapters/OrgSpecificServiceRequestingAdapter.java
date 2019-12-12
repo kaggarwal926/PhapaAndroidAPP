@@ -198,7 +198,9 @@ public class OrgSpecificServiceRequestingAdapter extends RecyclerView.Adapter<Or
                         activity.runOnUiThread(new Runnable() {
                             public void run() {
                                 holder.reqBtn.setEnabled(false);
-                                holder.apply_status.setVisibility(View.VISIBLE);
+                                holder.reqBtn.setText("APPLIED");
+                                holder.reqBtn.setBackgroundResource(R.drawable.buttonstyle_grey);
+//                                holder.apply_status.setVisibility(View.VISIBLE);
 
                                 Toast.makeText(context, message+"", Toast.LENGTH_LONG).show();
                             }

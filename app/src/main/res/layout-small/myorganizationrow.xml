@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:gravity="center"
+    android:orientation="horizontal"
     tools:ignore="MissingDefaultResource">
 
-
-
-
-
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/cardId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cardId"
-        android:layout_margin="3dp"
-        >
+        android:layout_margin="3dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/myorglogo"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/circlebackground"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="52dp"
-            app:civ_circle_background_color="@color/white"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/circlebackground"
+            app:civ_border_color="@color/white"
             app:civ_border_width="2dp"
-            android:layout_gravity="center_horizontal"
+            app:civ_circle_background_color="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.473"
-            app:civ_border_color="@color/white"/>
+            app:layout_constraintVertical_bias="0.473" />
 
         <TextView
             android:id="@+id/tvAnimalName"
@@ -73,7 +66,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAnimalName" />
 
-
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -90,10 +82,5 @@
             app:layout_constraintVertical_bias="0.166"
             tools:ignore="MissingConstraints" />
 
-
-
-
     </android.support.constraint.ConstraintLayout>
-
-
 </LinearLayout>
